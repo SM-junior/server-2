@@ -3,16 +3,17 @@ import config from './app/config';
 import mongoose from 'mongoose';
 const PORT = 3000;
 
-main().catch(err => console.log(err));
 
 async function main() {
     try {
         await mongoose.connect(config.database_url as string);
         app.listen(config.port, () => {
-            console.log(`Running from server.ts ${PORT}`)
+            console.log(`Running from server.ts ${config.port}`)
         })
     } catch (error) {
         console.log(error);
     }
 }
+
+main()
 

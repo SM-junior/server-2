@@ -16,13 +16,12 @@ const app_1 = __importDefault(require("./app"));
 const config_1 = __importDefault(require("./app/config"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const PORT = 3000;
-main().catch(err => console.log(err));
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield mongoose_1.default.connect(config_1.default.database_url);
             app_1.default.listen(config_1.default.port, () => {
-                console.log(`Example app listening on config.port ${PORT}`);
+                console.log(`Running from server.ts ${config_1.default.port}`);
             });
         }
         catch (error) {
