@@ -8,8 +8,8 @@ app.use(cors())
 
 
 app.get('/', (req: Request, res: Response) => {
-    const a = 10;
-    res.send(a)
+  const a = 10;
+  res.send(a)
 })
 
 export default app;
@@ -43,6 +43,18 @@ now follow index.ts, app.ts, server.ts file
 to run server on local machine
 1.npm run build
 2.npm run start:dev
+
+
+
+
+explain script object in package.json file
+"scripts": {
+    "build": "tsc",                                       -->npm run build OR tsc
+    "start:dev": "nodemon ./dist/server.js",              -->npm run start:dev OR nodemon ./dist/server.js
+    "lint": "eslint src --ignore-pattern .eslintignore",  -->npm run lint OR npx eslint src
+    "lint:fix": "npx eslint src --fix",                     -->npm run lint:fix OR npx eslint src --fix
+    "test": "echo \"Error: no test specified\" && exit 1" 
+  },
 
 
 

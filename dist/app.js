@@ -6,12 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const cors_1 = __importDefault(require("cors"));
-const port = 3000;
 //parser
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.get('/', (req, res) => {
-    var a = 10;
+    const a = 10;
     res.send(a);
 });
 exports.default = app;
@@ -43,6 +42,18 @@ now follow index.ts, app.ts, server.ts file
 to run server on local machine
 1.npm run build
 2.npm run start:dev
+
+
+
+
+explain script object in package.json file
+"scripts": {
+    "build": "tsc",                                       -->npm run tsc
+    "start:dev": "nodemon ./dist/server.js",              -->npm run nodemon ./dist/server.js
+    "lint": "eslint src --ignore-pattern .eslintignore",  -->npm run eslint src --ignore-pattern .eslintignore
+    "lint:fix": "npx eslint src --fix",                     -->npm run npx eslint src --fix
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
 
 
 
