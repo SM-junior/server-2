@@ -11,10 +11,13 @@ const port = 3000;
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.get('/', (req, res) => {
-    res.send('Running from app.ts');
+    var a = 10;
+    res.send(a);
 });
 exports.default = app;
 /*
+server creation is typescript with express, typescript(as dependency), mongoose, cors, dotenv
+
 installation and folder structure
 -->create a folder
 -->open with vs code
@@ -29,10 +32,17 @@ installation and folder structure
 -->open tsconfig.json file
 -->"rootDir":"./src"
 -->"outDir":"./dist" and save
--->on package.json file add "build": "tsc","start:dev": "nodemon dist/server.js", in scripts objects
+-->npm i nodemon
+-->on package.json file, add
+"build": "tsc",
+"start:dev": "nodemon ./dist/server.js", in scripts objects
 -->create .env file on root directory
 -->import mongodb uri link and set username, password and PORT on .env file and save it
 now follow index.ts, app.ts, server.ts file
+
+to run server on local machine
+1.npm run build
+2.npm run start:dev
 
 
 
