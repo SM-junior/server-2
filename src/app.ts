@@ -1,19 +1,17 @@
-import express, { Application, Request, Response } from "express"
-const app: Application = express()
-import cors from 'cors'
+import express, { Application, Request, Response } from 'express';
+const app: Application = express();
+import cors from 'cors';
 
 //parser
 app.use(express.json());
-app.use(cors())
-
+app.use(cors());
 
 app.get('/', (req: Request, res: Response) => {
   const a = 10;
-  res.send(a)
-})
+  res.send(a);
+});
 
 export default app;
-
 
 /*
 server creation is typescript with express, typescript(as dependency), mongoose, cors, dotenv
@@ -50,7 +48,12 @@ to run server on local machine
 explain script object in package.json file
 "scripts": {
     "build": "tsc",                                       -->npm run build OR tsc
-    "start:dev": "nodemon ./dist/server.js",              -->npm run start:dev OR nodemon ./dist/server.js
+    "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",  
+    -->kono kicu change kore save dile server automatically run hobe
+    -->only use for development, not in production
+    -->production a aita use korbo--> "start:prod": "nodemon ./dist/server.js",
+
+    "start:prod": "nodemon ./dist/server.js",              -->npm run start:dev OR nodemon ./dist/server.js
     "lint": "eslint src --ignore-pattern .eslintignore",  -->npm run lint OR npx eslint src
     "lint:fix": "npx eslint src --fix",                     -->npm run lint:fix OR npx eslint src --fix
     "test": "echo \"Error: no test specified\" && exit 1" 
