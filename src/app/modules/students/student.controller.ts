@@ -8,9 +8,10 @@ const createStudent = async (req: Request, res: Response) => {
         //zod validation
         const zodValidationData = studentValidationSchema.parse(studentData);
 
-        //studentData-->coming from client side,
-        //studentValidationSchema-->it comparing studentData with itself that is coming from client side,
-        //zodValidationData-->this is zod validated ready data
+        //studentData-->a raw data, coming from client side(body),
+        //studentValidationSchema-->it is comparing raw studentData with itself, if any validation problem occurs then send error to client side
+        //if everything is ok then send to database.
+        //zodValidationData-->this is zod validated ready data, we are sending this validated data to database for creating student
 
         const result = await StudentServices.createStudentToDb(zodValidationData);
         res.status(200).json({
