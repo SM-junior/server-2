@@ -1,4 +1,6 @@
-export type Guardian = {
+import { Model } from "mongoose";
+
+export type TGuardian = {
     fatherName: string;
     fatherOccupation: string;
     fatherContactNo: string;
@@ -6,21 +8,21 @@ export type Guardian = {
     motherOccupation: string;
     motherContactNo: string;
 };
-export type UserName = {
+export type TUserName = {
     firstName: string;
     lastName: string;
     middleName?: string;
 };
-export type LocalGuardian = {
+export type TLocalGuardian = {
     name: string;
     occupation: string;
     contact: string;
     address: string;
 };
 
-export type Student = {
+export type TStudent = {
     id: string;
-    name: UserName;
+    name: TUserName;
     gender: 'male' | 'female' | 'other';
     dateOfBirth?: string;
     email: string;
@@ -29,8 +31,26 @@ export type Student = {
     bloodGroup: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
     presentAddress: string;
     permanentAddress: string;
-    guardian: Guardian;
-    localGuardian?: LocalGuardian;
+    guardian: TGuardian;
+    localGuardian?: TLocalGuardian;
     profileImage?: string;
     isActive: 'active' | 'blocked';
 };
+
+
+//...........custom instance method.................................. 
+//interface ar moddhe 3 ta jinis lagbe..
+//1. interface/type lagbe,(ekhane already 'TStudent' type ace)
+//2. methods lagbe,(ekhance 'StudentMethods' ace)
+//3. model lagbe,(ekhane 'StudentModel' ace)
+
+// export type StudentMethods = {
+//     isUserExists(id: string): Promise<TStudent | null>
+// }
+// export type StudentModel = Model<TStudent, {}, StudentMethods>;
+
+
+//.............custom static methods...................................
+export interface StudentModel extends Model<TStudent> {
+    isUserExists(id: string): Promise<TStudent | null>
+}

@@ -1,12 +1,14 @@
 import { Schema, model } from 'mongoose';
 import {
-    Guardian,
-    LocalGuardian,
-    Student,
-    UserName,
+    // StudentMethods,
+    StudentModel,
+    TGuardian,
+    TLocalGuardian,
+    TStudent,
+    TUserName,
 } from './student.interface';
 
-const userNameSchema = new Schema<UserName>({
+const userNameSchema = new Schema<TUserName>({
     firstName: {
         type: String,
         Required: [true, 'First Name is required'],
@@ -23,7 +25,7 @@ const userNameSchema = new Schema<UserName>({
     },
 });
 
-const guardianSchema = new Schema<Guardian>({
+const guardianSchema = new Schema<TGuardian>({
     fatherName: {
         type: String,
         required: true,
@@ -56,7 +58,7 @@ const guardianSchema = new Schema<Guardian>({
     },
 });
 
-const localGuardianSchema = new Schema<LocalGuardian>({
+const localGuardianSchema = new Schema<TLocalGuardian>({
     name: {
         type: String,
         required: true,
@@ -79,7 +81,16 @@ const localGuardianSchema = new Schema<LocalGuardian>({
     },
 });
 
-const studentSchema = new Schema<Student>({
+//inbuilt static method ar belay aita hobe
+// const studentSchema = new Schema<TStudent>({
+
+//custom instance method ar belay aita hobe
+// const studentSchema = new Schema<TStudent, StudentModel, StudentMethods>({
+
+//custom static method ar belay aita hohbe
+// const studentSchema = new Schema<TStudent, StudentModel>({
+
+const studentSchema = new Schema<TStudent, StudentModel>({
     id: {
         type: String,
         required: true,
@@ -156,6 +167,21 @@ const studentSchema = new Schema<Student>({
     },
 });
 
-export const StudentModel = model<Student>('Student', studentSchema);
+//ai modelta shudhu inbuilt static method ar belay lagbe
+// export const Student = model<TStudent>('Student', studentSchema);
 
 
+//...................custom instance methods...................................
+// ar ai modelta shudu custom intance ar belay lagbe
+// studentSchema.methods.isUserExists = async function (id: string) {
+//     const existingUser = await Student.findOne({ id });
+//     return existingUser;
+// }
+// export const Student = model<TStudent, StudentModel>('Student', studentSchema);
+
+//...................custom static methods.....................................
+studentSchema.statics.isUserExists = async function (id: string) {
+    const existingUser = await Student.findOne({ id });
+    return existingUser;
+}
+export const Student = model<TStudent, StudentModel>('Student', studentSchema);
