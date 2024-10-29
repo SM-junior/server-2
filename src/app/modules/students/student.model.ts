@@ -7,6 +7,8 @@ import {
     TStudent,
     TUserName,
 } from './student.interface';
+import config from '../../config';
+import bcrypt from 'bcrypt';
 
 const userNameSchema = new Schema<TUserName>({
     firstName: {
@@ -97,6 +99,12 @@ const studentSchema = new Schema<TStudent, StudentModel>({
         unique: true,
         trim: true,
     },
+    password: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+    },
     name: {
         type: userNameSchema,
         required: [true, 'Name is required']
@@ -167,6 +175,14 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     },
 });
 
+//....middleware ke sobar upore declear korte hobei hobe
+//...........mongoose middleware/hooks...............shudhu atotukui
+studentSchema.pre('save', async function (next) {
+    const user = this;
+    user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_round))
+    next();
+})
+
 //ai modelta shudhu inbuilt static method ar belay lagbe
 // export const Student = model<TStudent>('Student', studentSchema);
 
@@ -185,3 +201,8 @@ studentSchema.statics.isUserExists = async function (id: string) {
     return existingUser;
 }
 export const Student = model<TStudent, StudentModel>('Student', studentSchema);
+
+
+
+
+

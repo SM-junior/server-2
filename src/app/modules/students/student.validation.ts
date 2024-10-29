@@ -28,6 +28,7 @@ const localGuardianValidationSchema = z.object({
 // Define the main Zod schema for Student
 const studentValidationSchema = z.object({
     id: z.string().min(1, { message: 'ID is required' }).trim(),
+    password: z.string().min(8, { message: 'password must be at least 8 characters' }).trim(),
     name: userNameValidationSchema,
     gender: z.enum(['male', 'female', 'other'], { message: '{VALUE} is not supported' }),
     dateOfBirth: z.string().optional().transform((val) => val?.trim() || ''),
