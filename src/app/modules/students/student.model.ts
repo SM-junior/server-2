@@ -102,7 +102,6 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     password: {
         type: String,
         required: true,
-        unique: true,
         trim: true,
     },
     name: {
@@ -173,14 +172,34 @@ const studentSchema = new Schema<TStudent, StudentModel>({
         },
         default: 'active'
     },
+    isDeleted: {
+        type: Boolean,
+        default: false
+    }
 });
 
 //....middleware ke sobar upore declear korte hobei hobe
-//...........mongoose middleware/hooks...............shudhu atotukui
+//...........mongoose middleware/hooks(document middleware)...............shudhu atotukui
 studentSchema.pre('save', async function (next) {
     const user = this;
     user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_round))
     next();
+})
+
+studentSchema.post('save', async function (doc, next) {
+    doc.password = "";
+    next();
+})
+
+//............mongoose middleware(query middleware)..................
+studentSchema.pre('find', function (next) {
+    this.find({ isDeleted: { $ne: true } });
+    next()
+})
+
+studentSchema.pre('findOne', function (next) {
+    this.find({ isDeleted: { $ne: true } });
+    next()
 })
 
 //ai modelta shudhu inbuilt static method ar belay lagbe
