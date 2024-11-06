@@ -177,6 +177,13 @@ const studentSchema = new Schema<TStudent, StudentModel>({
         default: false
     }
 });
+studentSchema.set('toJSON', { virtuals: true });
+
+
+//................mongoose Virtual...............
+studentSchema.virtual('fullName').get(function () {
+    return (`${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`)
+})
 
 //....middleware ke sobar upore declear korte hobei hobe
 //...........mongoose middleware/hooks(document middleware)...............shudhu atotukui
@@ -201,6 +208,7 @@ studentSchema.pre('findOne', function (next) {
     this.find({ isDeleted: { $ne: true } });
     next()
 })
+
 
 //ai modelta shudhu inbuilt static method ar belay lagbe
 // export const Student = model<TStudent>('Student', studentSchema);
